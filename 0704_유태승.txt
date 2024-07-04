@@ -1,0 +1,75 @@
+1. 프로젝트명 본인 영어명
+2. 공유폴더에 있는 에셋을 이용해서 제작
+3. StartScene에 바다에 있는 해상기지 만들기
+해상기지를 모델링과 StandardAsset에 있는 Water를 이용하여
+레벨 디자인을 만들고 UI도 제작
+제목 이미지와 게임 시작 버튼과 종료 버튼을 만든다.
+시작버튼으로 플레이씬 연결 종료 버튼을 누르면 종료 된다.
+4.PlayScene 만들기
+FPSController에 손모양 모델링을 부착
+뛰어 가때 총을 접고 멈추면 다시 겨누는 애니메이션 구현
+F를 눌렀을 때 후래시를 끄고 켠다.
+123을 눌러 총기가 교체되고 애니메이션도 구현
+계단을 올라갈때 큐브로 매끄럽게 올라가도록 하고
+계단을 올라갈때 포인트 라이트가 켜진다 멀어지면 꺼진다.
+
+-----
+
+FPSControlloer
+W(앞) A(왼쪽) S(뒤) D(오른쪽) -> 이동
+LeftShift + W -> 달리기
+SpaceBar -> 점프
+Mouse - X축으로 움직이면 1인칭 캐릭터는 Y축으로 회전
+Mouse - Y축으로 움직이면 1인칭 캐릭터는 X축으로 회전
+
+WASD 한번씩 누르면 되지만
+만약에 W를 누르고 있고 A를 누른다면 (두가지 키를 동시에 누른다면)
+균일하게 속도가 1이 아니라 1.4144된다. 피타고라스 정리에 의하면
+정규화를 해야 한다. 전부다 균일하게 1이 되도록
+
+======
+
+입력 받아서 하는 것으로 바꾸고 11이상 입력 예외처리 되면
+다시 재입력 요구한다.
+11 이상 세번 반복 하면 프로그램은 종료 되도록 한다.
+
+internal class Class3
+{
+    static void DoSomeTjhing(int arg)
+    {
+        if (arg < 11)
+        {
+            Console.WriteLine($"{arg}");
+        }
+        else
+        {
+            throw new Exception("arg가 11보다 큽니다.");
+        }
+    }
+    static void Main(string[] args)
+    {
+        int count = 0;
+        while (true)
+        {
+
+            int arg = Convert.ToInt32(Console.ReadLine());
+
+            try
+            {
+                DoSomeTjhing(arg);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine($"11이상의 수를 {++count} 번 입력 했습니다.");
+            }
+
+            if (arg < 11)
+                if (count == 3)
+                {
+                    Console.WriteLine("11이상의 수를 세번 이상 입력 했습니다.");
+                    break;
+                }
+        }
+    }
+}
